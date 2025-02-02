@@ -122,8 +122,12 @@ describe('Data Ingestion', () => {
         </LabResults>
       `;
 
-      // Reset mock to allow insert
+      // Mock the database response to simulate no existing lab results
       (db.query.labResults.findFirst as jest.Mock).mockResolvedValueOnce(null);
+      // Mock the patient lookup to succeed
+      (db.query.patients.findFirst as jest.Mock).mockResolvedValueOnce({
+        id: 'P1001',
+      });
 
       await fileProcessor.processFile(xmlContent);
       expect(mockWss.broadcast).toHaveBeenCalledWith(

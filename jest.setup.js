@@ -28,6 +28,10 @@ const mockDb = {
           { id: 'S1', patientId: 'P1001', symptom: 'fever', severity: 5 },
         ]), // Mocked response for findMany
     },
+    outlierLogs: {
+      findFirst: jest.fn().mockResolvedValue(null), // Mock outlierLogs findFirst
+      findMany: jest.fn().mockResolvedValue([]), // Mock outlierLogs findMany
+    },
   },
 };
 

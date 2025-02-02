@@ -292,8 +292,7 @@ export class FileProcessor {
       });
 
       if (existingLog) {
-        console.log(`Duplicate outlier log skipped: ${message}`);
-        return;
+        return existingLog;
       }
 
       const formattedMessage =
@@ -329,8 +328,11 @@ export class FileProcessor {
           type: type,
         },
       });
+
+      return log;
     } catch (error) {
       console.error(`Error logging outlier for patient ${patientId}:`, error);
+      return null;
     }
   }
 
@@ -419,22 +421,50 @@ export class FileProcessor {
         // Check for abnormal values based on test type
         const value = parseFloat(result.value);
         if (result.testType === 'LDL' && value > THRESHOLDS.LDL) {
-          await this.logOutlier(
+          const log = await this.logOutlier(
             result.patientId,
             `Abnormal ${result.testType}: ${value} ${result.units}`,
             'lab',
             new Date(result.resultDate)
           );
+
+          if (log) {
+            this.wss.broadcast({
+              type: 'outlier',
+              data: {
+                id: log.id,
+                patientId: result.patientId,
+                reportedDate: new Date(result.resultDate),
+                createdAt: new Date(),
+                message: `Abnormal ${result.testType}: ${value} ${result.units}`,
+                type: 'lab',
+              },
+            });
+          }
         } else if (
           result.testType === 'Glucose' &&
           value > THRESHOLDS.GLUCOSE
         ) {
-          await this.logOutlier(
+          const log = await this.logOutlier(
             result.patientId,
             `Abnormal ${result.testType}: ${value} ${result.units}`,
             'lab',
             new Date(result.resultDate)
           );
+
+          if (log) {
+            this.wss.broadcast({
+              type: 'outlier',
+              data: {
+                id: log.id,
+                patientId: result.patientId,
+                reportedDate: new Date(result.resultDate),
+                createdAt: new Date(),
+                message: `Abnormal ${result.testType}: ${value} ${result.units}`,
+                type: 'lab',
+              },
+            });
+          }
         }
       } catch (error) {
         console.error(
