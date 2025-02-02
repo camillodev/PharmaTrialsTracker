@@ -1,0 +1,10 @@
+
+[
+  {
+    "id": "SYM001",
+    "patientId": "P1001",
+    "symptom": "headache",
+    "severity": 8,
+    "reportedDate": "2025-01-01T10:00:00Z"
+  }
+]

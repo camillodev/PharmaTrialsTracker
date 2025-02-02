@@ -1,0 +1,150 @@
+# Pharma Trials Tracker
+
+## Context & Scenario
+We're simulating a system that manages data for a clinical trial. You'll receive files in multiple formats (CSV, JSON, XML) capturing patient enrollments, lab results, and symptom logs. You must ingest, unify, store, and analyze them—then produce both numeric and AI-driven summaries. Additionally, you'll need to handle some concurrency and real-time aspects.
+
+### High-Level Tasks
+
+#### Data Ingestion
+- Parse multiple formats: CSV, JSON, XML.
+- Merge them into a consistent data model (e.g., “patients,” “trial enrollments,” “lab results,” “symptoms,” etc.).
+- Store the unified data in your chosen DB (SQL, NoSQL—your call).
+
+#### Transformation Logs & Outlier Handling
+- Define thresholds for outliers (e.g., “LDL>200 or Glucose>250 => outlier,” “symptom severity≥8 => outlier”).
+- Log outlier events: e.g., “Patient P123 lab glucose=300 flagged at 2025-02-14 10:00”.
+- Persist logs in a DB or structured file for querying.
+
+#### Concurrency & Real-Time Updates
+- Handle or simulate multiple file ingestions in parallel.
+- Implement real-time/event-driven updates (WebSocket, SSE, or queue-based) for partial results or logs.
+
+#### Analysis & AI Summaries
+- Compute at least one numeric analysis (e.g., average age, counts of abnormal results).
+- Call an AI model (or mock) to generate a summary of the clinical trial status.
+
+#### Front End
+- Build a minimal React/Vue/Angular page to display numeric analysis and AI summary.
+- Show near real-time updates if WebSocket/SSE is implemented.
+
+#### Tests & Documentation
+- Provide automated test(s) for ingestion or analysis logic.
+- Short README explaining:
+  - How to run your system (Docker or manual).
+  - How concurrency is tested or simulated.
+  - How real-time updates are triggered.
+  - Any partial solutions or assumptions.
+
+## Files to Provide (Main Data)
+
+####  File 1: `trial_enrollments.csv`
+```
+patientId,trialId,enrollDate
+
+P1001,T999,2025-01-10
+
+P1002,T999,2025-01-11
+
+P1003,T999,2025-01-11
+
+P100X,T999,2025-01-12
+```
+#### File 2: `symptoms.json`
+```
+[
+
+  {
+
+    "id": "S1",
+
+    "patientId": "P1001",
+
+    "symptom": "fatigue",
+
+    "severity": 2,
+
+    "reportedDate": "2025-01-15"
+
+  },
+
+  {
+
+    "id": "S2",
+
+    "patientId": "P1002",
+
+    "symptom": "headache",
+
+    "severity": 4,
+
+    "reportedDate": "2025-01-16"
+
+  },
+
+  {
+
+    "id": "S3",
+
+    "patientId": "P1003",
+
+    "symptom": "nausea",
+
+    "severity": 5,
+
+    "reportedDate": "2025-01-17"
+
+  }
+
+]
+```
+- “severity” on a 1–10 scale. Perhaps treat anything 8+ as “severe” outlier for logging?
+#### File 3: `lab_results.xml`
+```
+<LabResults>
+  <Result>
+    <patientId>P1001</patientId>
+    <testType>LDL</testType>
+    <value>210</value>
+    <units>mg/dL</units>
+    <resultDate>2025-01-18</resultDate>
+  </Result>
+  <Result>
+    <patientId>P1002</patientId>
+    <testType>Glucose</testType>
+    <value>300</value>
+    <units>mg/dL</units>
+    <resultDate>2025-01-19</resultDate>
+  </Result>
+  <Result>
+    <patientId>P9999</patientId>
+    <testType>LDL</testType>
+    <value>190</value>
+    <units>mg/dL</units>
+    <resultDate>2025-01-20</resultDate>
+  </Result>
+</LabResults>
+```
+- P9999 might not exist in the enrollments or symptoms. You must decide how to handle missing references.
+
+### Additional Requirements & Hints
+
+#### Threshold/Outlier Logic
+- Define thresholds such as “LDL>200 or Glucose>250 => outlier,” and “symptom severity≥8 => outlier.”
+- Store a textual record for each outlier or mismatch detected, e.g., “Outlier: P1002 glucose=300 on 2025-01-19.”
+- Log a mismatch event if a patient appears in a file but not in `trial_enrollments.csv`.
+
+#### Concurrency
+- Demonstrate how ingestion endpoints could handle multiple file uploads in parallel.
+- If full implementation isn't feasible, provide a quick script or approach for handling parallel requests and avoiding collisions (e.g., multiple requests updating the same patient).
+
+#### Real-Time
+- Implement at least a partial real-time approach such as WebSocket, SSE, or event-based logs.
+- Example: While ingesting data, broadcast each outlier event to any connected client.
+
+#### Numeric Analysis
+- Examples include “Average symptom severity,” “Count of outliers,” and “Earliest vs. latest resultDate.”
+- Return these statistics from your analysis endpoint(s).
+
+#### AI Summary
+- Summarize the stats mentioned above or highlight the frequency/trends of outliers.
+- If no real API key is available, mock the call but demonstrate how data would be passed to an AI model and a textual snippet returned.

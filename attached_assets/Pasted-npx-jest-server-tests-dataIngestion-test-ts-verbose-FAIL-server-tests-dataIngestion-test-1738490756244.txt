@@ -1,0 +1,68 @@
+npx jest server/__tests__/dataIngestion.test.ts --verbose
+ FAIL  server/__tests__/dataIngestion.test.ts (7.691 s)
+  Data Ingestion
+    File Type Detection
+      ✓ should detect CSV files correctly (3 ms)
+      ✓ should detect JSON files correctly
+      ✓ should detect XML files correctly (2 ms)
+      ✓ should return null for invalid content (1 ms)
+    Duplicate Detection
+      ✕ should detect duplicate files (2 ms)
+    Data Validation
+      ✓ should validate lab result data (3 ms)
+      ✓ should validate symptom severity range (1 ms)
+    Analysis Processing
+      ✕ should detect high LDL values (1 ms)
+
+  ● Data Ingestion › Duplicate Detection › should detect duplicate files
+
+    TypeError: Cannot read properties of undefined (reading 'findFirst')
+
+      58 |
+      59 |   private async isFileDuplicate(hash: string, type: string): Promise<boolean> {
+    > 60 |     const result = await db.query.labResults.findFirst({
+         |                                              ^
+      61 |       where: eq(labResults.fileHash, hash),
+      62 |     });
+      63 |     return !!result;
+
+      at FileProcessor.<anonymous> (server/services/fileProcessor.ts:60:46)
+      at server/services/fileProcessor.ts:8:71
+      at Object.<anonymous>.__awaiter (server/services/fileProcessor.ts:4:12)
+      at FileProcessor.isFileDuplicate (server/services/fileProcessor.ts:59:16)
+      at FileProcessor.<anonymous> (server/services/fileProcessor.ts:75:20)
+      at server/services/fileProcessor.ts:8:71
+      at Object.<anonymous>.__awaiter (server/services/fileProcessor.ts:4:12)
+      at FileProcessor.processFile (server/services/fileProcessor.ts:67:16)
+      at server/__tests__/dataIngestion.test.ts:54:27
+      at server/__tests__/dataIngestion.test.ts:8:71
+      at Object.<anonymous>.__awaiter (server/__tests__/dataIngestion.test.ts:4:12)
+      at Object.<anonymous> (server/__tests__/dataIngestion.test.ts:41:52)
+
+  ● Data Ingestion › Analysis Processing › should detect high LDL values
+
+    TypeError: Cannot read properties of undefined (reading 'findFirst')
+
+      58 |
+      59 |   private async isFileDuplicate(hash: string, type: string): Promise<boolean> {
+    > 60 |     const result = await db.query.labResults.findFirst({
+         |                                              ^
+      61 |       where: eq(labResults.fileHash, hash),
+      62 |     });
+      63 |     return !!result;
+
+      at FileProcessor.<anonymous> (server/services/fileProcessor.ts:60:46)
+      at server/services/fileProcessor.ts:8:71
+      at Object.<anonymous>.__awaiter (server/services/fileProcessor.ts:4:12)
+      at FileProcessor.isFileDuplicate (server/services/fileProcessor.ts:59:16)
+      at FileProcessor.<anonymous> (server/services/fileProcessor.ts:75:20)
+      at server/services/fileProcessor.ts:8:71
+      at Object.<anonymous>.__awaiter (server/services/fileProcessor.ts:4:12)
+      at FileProcessor.processFile (server/services/fileProcessor.ts:67:16)
+      at server/__tests__/dataIngestion.test.ts:109:27
+      at server/__tests__/dataIngestion.test.ts:8:71
+      at Object.<anonymous>.__awaiter (server/__tests__/dataIngestion.test.ts:4:12)
+      at Object.<anonymous> (server/__tests__/dataIngestion.test.ts:95:52)
+
+Test Suites: 1 failed, 1 total
+Tests:       2 failed, 6 passed, 8 total

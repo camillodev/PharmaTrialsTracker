@@ -1,0 +1,191 @@
+ npx jest server/__tests__/dataIngestion.test.ts --verbose
+  console.error
+    Error processing lab result for patient P1001: TypeError: _db_1.db.insert(...).values is not a function
+        at FileProcessor.<anonymous> (/home/runner/workspace/server/services/fileProcessor.ts:265:37)
+        at Generator.next (<anonymous>)
+        at fulfilled (/home/runner/workspace/server/services/fileProcessor.ts:5:58)
+        at processTicksAndRejections (node:internal/process/task_queues:95:5)
+
+      293 |         }
+      294 |       } catch (error) {
+    > 295 |         console.error(
+          |                 ^
+      296 |           `Error processing lab result for patient ${result.patientId}:`,
+      297 |           error
+      298 |         );
+
+      at FileProcessor.<anonymous> (server/services/fileProcessor.ts:295:17)
+      at fulfilled (server/services/fileProcessor.ts:5:58)
+
+  console.error
+    Error processing lab result for patient P1001: TypeError: _db_1.db.insert(...).values is not a function
+        at FileProcessor.<anonymous> (/home/runner/workspace/server/services/fileProcessor.ts:265:37)
+        at Generator.next (<anonymous>)
+        at fulfilled (/home/runner/workspace/server/services/fileProcessor.ts:5:58)
+        at processTicksAndRejections (node:internal/process/task_queues:95:5)
+
+      293 |         }
+      294 |       } catch (error) {
+    > 295 |         console.error(
+          |                 ^
+      296 |           `Error processing lab result for patient ${result.patientId}:`,
+      297 |           error
+      298 |         );
+
+      at FileProcessor.<anonymous> (server/services/fileProcessor.ts:295:17)
+      at fulfilled (server/services/fileProcessor.ts:5:58)
+
+  console.error
+    Error processing lab result for patient P1001: TypeError: _db_1.db.insert(...).values is not a function
+        at FileProcessor.<anonymous> (/home/runner/workspace/server/services/fileProcessor.ts:265:37)
+        at Generator.next (<anonymous>)
+        at fulfilled (/home/runner/workspace/server/services/fileProcessor.ts:5:58)
+        at processTicksAndRejections (node:internal/process/task_queues:95:5)
+
+      293 |         }
+      294 |       } catch (error) {
+    > 295 |         console.error(
+          |                 ^
+      296 |           `Error processing lab result for patient ${result.patientId}:`,
+      297 |           error
+      298 |         );
+
+      at FileProcessor.<anonymous> (server/services/fileProcessor.ts:295:17)
+      at fulfilled (server/services/fileProcessor.ts:5:58)
+
+  console.error
+    Error processing symptom record for patient P1001: TypeError: _db_1.db.insert(...).values is not a function
+        at FileProcessor.<anonymous> (/home/runner/workspace/server/services/fileProcessor.ts:213:35)
+        at Generator.next (<anonymous>)
+        at fulfilled (/home/runner/workspace/server/services/fileProcessor.ts:5:58)
+        at processTicksAndRejections (node:internal/process/task_queues:95:5)
+
+      229 |         }
+      230 |       } catch (error) {
+    > 231 |         console.error(
+          |                 ^
+      232 |           `Error processing symptom record for patient ${record.patientId}:`,
+      233 |           error
+      234 |         );
+
+      at FileProcessor.<anonymous> (server/services/fileProcessor.ts:231:17)
+      at fulfilled (server/services/fileProcessor.ts:5:58)
+
+  console.error
+    Error processing lab result for patient P1001: TypeError: _db_1.db.insert(...).values is not a function
+        at FileProcessor.<anonymous> (/home/runner/workspace/server/services/fileProcessor.ts:265:37)
+        at Generator.next (<anonymous>)
+        at fulfilled (/home/runner/workspace/server/services/fileProcessor.ts:5:58)
+        at processTicksAndRejections (node:internal/process/task_queues:95:5)
+
+      293 |         }
+      294 |       } catch (error) {
+    > 295 |         console.error(
+          |                 ^
+      296 |           `Error processing lab result for patient ${result.patientId}:`,
+      297 |           error
+      298 |         );
+
+      at FileProcessor.<anonymous> (server/services/fileProcessor.ts:295:17)
+      at fulfilled (server/services/fileProcessor.ts:5:58)
+
+ FAIL  server/__tests__/dataIngestion.test.ts (7.283 s)
+  Data Ingestion
+    File Type Detection
+      ✓ should detect CSV files correctly (3 ms)
+      ✓ should detect JSON files correctly (1 ms)
+      ✓ should detect XML files correctly (2 ms)
+      ✓ should return null for invalid content
+    Duplicate Detection
+      ✕ should detect duplicate files (52 ms)
+    Data Validation
+      ✕ should validate lab result data (5 ms)
+      ✕ should validate symptom severity range (3 ms)
+    Analysis Processing
+      ✕ should detect high LDL values (6 ms)
+
+  ● Data Ingestion › Duplicate Detection › should detect duplicate files
+
+    expect(received).rejects.toThrow()
+
+    Received promise resolved instead of rejected
+    Resolved to value: {"count": 1, "type": "lab-results"}
+
+      55 |
+      56 |       // Second upload should throw error
+    > 57 |       await expect(fileProcessor.processFile(xmlContent)).rejects.toThrow(
+         |             ^
+      58 |         'This file has already been processed'
+      59 |       );
+      60 |     });
+
+      at expect (node_modules/expect/build/index.js:113:15)
+      at server/__tests__/dataIngestion.test.ts:57:13
+      at fulfilled (server/__tests__/dataIngestion.test.ts:5:58)
+
+  ● Data Ingestion › Data Validation › should validate lab result data
+
+    expect(received).rejects.toThrow()
+
+    Received promise resolved instead of rejected
+    Resolved to value: {"count": 1, "type": "lab-results"}
+
+      74 |       `;
+      75 |
+    > 76 |       await expect(fileProcessor.processFile(invalidXml)).rejects.toThrow();
+         |             ^
+      77 |     });
+      78 |
+      79 |     it('should validate symptom severity range', async () => {
+
+      at expect (node_modules/expect/build/index.js:113:15)
+      at server/__tests__/dataIngestion.test.ts:76:13
+      at server/__tests__/dataIngestion.test.ts:8:71
+      at Object.<anonymous>.__awaiter (server/__tests__/dataIngestion.test.ts:4:12)
+      at Object.<anonymous> (server/__tests__/dataIngestion.test.ts:64:54)
+
+  ● Data Ingestion › Data Validation › should validate symptom severity range
+
+    expect(received).rejects.toThrow()
+
+    Received promise resolved instead of rejected
+    Resolved to value: {"count": 1, "type": "symptoms"}
+
+      88 |       ]);
+      89 |
+    > 90 |       await expect(fileProcessor.processFile(invalidJson)).rejects.toThrow();
+         |             ^
+      91 |     });
+      92 |   });
+      93 |
+
+      at expect (node_modules/expect/build/index.js:113:15)
+      at server/__tests__/dataIngestion.test.ts:90:13
+      at server/__tests__/dataIngestion.test.ts:8:71
+      at Object.<anonymous>.__awaiter (server/__tests__/dataIngestion.test.ts:4:12)
+      at Object.<anonymous> (server/__tests__/dataIngestion.test.ts:79:61)
+
+  ● Data Ingestion › Analysis Processing › should detect high LDL values
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    Expected: ObjectContaining {"data": ObjectContaining {"message": StringContaining "210 mg/dL", "type": "lab"}, "type": "outlier"}
+
+    Number of calls: 0
+
+      108 |
+      109 |       await fileProcessor.processFile(xmlContent);
+    > 110 |       expect(mockWss.broadcast).toHaveBeenCalledWith(
+          |                                 ^
+      111 |         expect.objectContaining({
+      112 |           type: 'outlier',
+      113 |           data: expect.objectContaining({
+
+      at server/__tests__/dataIngestion.test.ts:110:33
+      at fulfilled (server/__tests__/dataIngestion.test.ts:5:58)
+
+Test Suites: 1 failed, 1 total
+Tests:       4 failed, 4 passed, 8 total
+Snapshots:   0 total
+Time:        7.335 s, estimated 8 s
+Ran all test suites matching /server\/__tests__\/dataIngestion.test.ts/i.

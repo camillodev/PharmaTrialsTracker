@@ -1,0 +1,11 @@
+
+<?xml version="1.0"?>
+<LabResults>
+  <Result>
+    <patientId>P1001</patientId>
+    <testType>LDL</testType>
+    <value>150</value>
+    <units>mg/dL</units>
+    <resultDate>2025-01-01T09:00:00Z</resultDate>
+  </Result>
+</LabResults>

@@ -1,0 +1,10 @@
+
+[
+  {
+    "id": "SYM002",
+    "patientId": "P1002",
+    "symptom": "nausea",
+    "severity": 7,
+    "reportedDate": "2025-01-02T10:00:00Z"
+  }
+]

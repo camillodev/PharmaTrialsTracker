@@ -1,0 +1,52 @@
+{
+  "summary": {
+    "total_patients": 3,
+    "average_symptom_severity": 3.67,
+    "severe_symptoms": {
+      "description": "Patients with symptom severity equal to or greater than 4",
+      "count": 2,
+      "patients": ["P1002", "P1003"]
+    },
+    "abnormal_lab_results": {
+      "description": "Lab test values exceeding standard healthy ranges",
+      "count": 2,
+      "patients": [
+        {
+          "patientId": "P1001",
+          "testType": "LDL",
+          "value": 210,
+          "units": "mg/dL",
+          "resultDate": "2025-01-18",
+          "referenceRange": "Optimal: <100 mg/dL"
+        },
+        {
+          "patientId": "P1002",
+          "testType": "Glucose",
+          "value": 300,
+          "units": "mg/dL",
+          "resultDate": "2025-01-19",
+          "referenceRange": "Normal fasting: <100 mg/dL"
+        }
+      ]
+    }
+  },
+  "insights": {
+    "patient_count": "There are 3 patients recorded in the dataset.",
+    "symptom_analysis": {
+      "average_severity": "The average symptom severity is 3.67.",
+      "severe_cases": "Two patients reported severe symptoms: P1002 (headache, severity 4) and P1003 (nausea, severity 5)."
+    },
+    "lab_results_analysis": {
+      "abnormal_results": [
+        {
+          "patient": "P1001",
+          "issue": "High LDL level of 210 mg/dL, significantly above the optimal threshold."
+        },
+        {
+          "patient": "P1002",
+          "issue": "Glucose level of 300 mg/dL, far exceeding normal fasting levels."
+        }
+      ]
+    }
+  }
+}

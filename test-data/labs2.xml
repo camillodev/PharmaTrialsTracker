@@ -1,0 +1,11 @@
+
+<?xml version="1.0"?>
+<LabResults>
+  <Result>
+    <patientId>P1002</patientId>
+    <testType>Glucose</testType>
+    <value>180</value>
+    <units>mg/dL</units>
+    <resultDate>2025-01-02T09:00:00Z</resultDate>
+  </Result>
+</LabResults>
